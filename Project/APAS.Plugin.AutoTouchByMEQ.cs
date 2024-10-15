@@ -53,9 +53,6 @@ namespace APAS.Plugin.AutoTouchByMEQ
             var lmuNames = apasService?.__SSC_GetLMUList().Result;
             LMUList = CollectionViewSource.GetDefaultView(lmuNames ?? []);
 
-            var meqNames = apasService?.__SSC_GetMEQList().Result;
-            MeasurableEquipment = CollectionViewSource.GetDefaultView(meqNames ?? []);
-
 
             UserView = new AutoTouchByMEQView()
             {
@@ -75,7 +72,7 @@ namespace APAS.Plugin.AutoTouchByMEQ
 
         public ICollectionView AxisList { get; private set; }
 
-        public ICollectionView MeasurableEquipment { get; }
+        public ICollectionView MeasurableEquipment { get; private set; }
 
         public string SelectedLMU
         {
@@ -104,11 +101,27 @@ namespace APAS.Plugin.AutoTouchByMEQ
 
         public double MaxDistance { get; set; } = 10;
 
-        public int Threshold { get; set; } = 100;
+        public double Threshold { get; set; } = 0.01;
 
         #endregion
 
         #region Commands
+
+        public RelayCommand RefreshMEQListCommand =>
+            new(() =>
+            {
+                try
+                {
+                    var meqNames = ApasService?.__SSC_GetMEQList().Result;
+                    MeasurableEquipment = CollectionViewSource.GetDefaultView(meqNames ?? []);
+                    OnPropertyChanged(nameof(MeasurableEquipment));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            });
+
 
         public RelayCommand StartCommand =>
             new(async () =>
@@ -145,7 +158,7 @@ namespace APAS.Plugin.AutoTouchByMEQ
         public sealed override async Task<object> Execute(object args)
         {
             await ApasService.__SSC_AutoTouchByMEQ(SelectedLMU, SelectedAxis, (double)Speed, Step, MaxDistance, SelectedMEQ,
-                (uint)Threshold);
+                Threshold);
             return null;
         }
 

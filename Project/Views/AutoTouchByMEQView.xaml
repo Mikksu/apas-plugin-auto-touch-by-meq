@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:APAS.Plugin.AutoTouchByMEQ"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d"
              d:Background="White"
              d:DesignHeight="250" d:DesignWidth="300"
@@ -34,12 +35,12 @@
 
             </Style>
 
-            <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Style TargetType="TextBox">
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
 
-            <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+            <Style TargetType="ComboBox">
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
@@ -59,7 +60,13 @@
         <TextBlock Grid.Row="2" Grid.Column="0" Text="压力反馈"/>
         <ComboBox Grid.Row="2" Grid.Column="1"
                   ItemsSource="{Binding MeasurableEquipment }"
-                  SelectedItem="{Binding SelectedMEQ}"/>
+                  SelectedItem="{Binding SelectedMEQ}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="DropDownOpened">
+                    <i:InvokeCommandAction Command="{Binding RefreshMEQListCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
 
         <TextBlock Grid.Row="3" Grid.Column="0" Text="速度(%)"/>
         <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Speed }"/>
