@@ -1,0 +1,25 @@
+﻿{
+	"AxisCollection": 
+		[
+			{
+				"Lmc1": "Lens",
+				"Axis1": "X",
+				"Lmc2": "Receptacle",
+				"Axis2": "X",
+				"CcwButtonCaption": "前",
+				"CwButtonCaption": "后",
+				"IsSwapAxis1Dir": false,
+				"IsSwapAxis2Dir": true
+			},
+			{
+				"Lmc1": "Lens",
+				"Axis1": "Y",
+				"Lmc2": "Receptacle",
+				"Axis2": "Y",
+				"CcwButtonCaption": "上",
+				"CwButtonCaption": "下",
+				"IsSwapAxis1Dir": false,
+				"IsSwapAxis2Dir": true
+			}
+		]
+}
