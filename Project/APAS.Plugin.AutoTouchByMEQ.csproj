@@ -70,16 +70,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\AxisCaptionConverter.cs" />
     <Compile Include="Classes\Configuration.cs" />
-    <Compile Include="ViewModels\AxisInfo.cs" />
-    <Compile Include="ViewModels\AxisInfoManager.cs" />
     <Compile Include="APAS.Plugin.AutoTouchByMEQ.cs" />
     <Compile Include="Views\AutoTouchByMEQView.xaml.cs">
       <DependentUpon>AutoTouchByMEQView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Classes\RelayCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -95,5 +91,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

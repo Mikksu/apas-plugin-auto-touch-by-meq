@@ -3,7 +3,9 @@ using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
+using APAS.CoreLib;
 using APAS.Plugin.AutoTouchByMEQ.Classes;
 using APAS.Plugin.AutoTouchByMEQ.Views;
 using APAS.Plugin.Sdk.Base;
@@ -106,6 +108,37 @@ namespace APAS.Plugin.AutoTouchByMEQ
 
         #endregion
 
+        #region Commands
+
+        public RelayCommand StartCommand =>
+            new(async () =>
+            {
+                try
+                {
+                    await Execute(null);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                
+            });
+
+        public RelayCommand StopCommand =>
+            new(() =>
+            {
+                try
+                {
+                    ApasService?.__SSC_MotionStop();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                
+            });
+
+        #endregion
 
         #region Methods
 
